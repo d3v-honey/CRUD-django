@@ -1,0 +1,13 @@
+
+    <!-- Position it -->
+    <div style="position: absolute; top: 1em; right: 1em;">
+
+        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+            <div class="toast-header">
+                {% comment %} <img src="..." class="rounded mr-2" alt="..."> {% endcomment %}
+                <strong class="mr-auto">{{error}}</strong>
+            </div>
+            <div class="toast-body">{{body|default:"Loading..."}}</div>
+        </div>
+
+    </div>

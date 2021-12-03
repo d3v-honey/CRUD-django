@@ -1,0 +1,99 @@
+<h3>List of Songs</h3>
+<table class="table table-bordered table-striped mb-3">
+    <thead>
+        <tr>
+            <th>Album Cover</th>
+            <th>Song Title</th>
+            <th>Song Lyrics</th>
+            <th>Year Published</th>
+            <th>Artist</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    {% for v in songs %}
+    <tr>
+        <td><img width=150 src={{v.album_cover_url}} /></td>
+        <td>{{v.title}}</td>
+        <td>{{v.lyrics|truncatewords:50}}</td>
+        <td>{{v.year_published}}</td>
+        <td>{{v.artist_id}}</td>
+        <td>
+            <!-- <button>update</button> -->
+            <button type="button" class="btn btn-primary" data-id="{{v}}" data-bs-toggle="modal" data-bs-target="#updateModal">Update</button>
+            <a href="delete_song/{{v.id}}" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr/>
+<h3>List of Artists</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Artist Name</th>
+            <th>Age</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    {% for v in artists %}
+    <tr>
+        <td>{{v.name}}</td>
+        <td>{{v.age}}</td>
+        <td>
+            <!-- <button>update</button> -->
+            <a href="delete_artist/{{v.id}}" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">Modal title</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST"> {% csrf_token %}
+
+                <div class="form-group mt-4">
+                    <label for="title">Song Title:</label>
+                    {{song_form.title}}
+                </div>
+                <div class="form-group mt-4">
+                    <label for="title">Song Lyrics:</label>
+                    {{song_form.lyrics}}
+                </div>
+                <div class="form-group mt-4">
+                    <label for="album">Album Cover:</label>
+                    {{song_form.album_cover_url}}
+                </div>
+                <div class="form-group mt-4">
+                    <label for="artist">Artist:</label>
+                    {{song_form.artist_id}}
+                </div>
+                <div class="form-group mt-4">
+                    <label for="published">Published Date</label>
+                    {{song_form.year_published}}
+                </div>
+                
+                <div class="form-group mt-4">
+                    <button type="submit" class="w-100 btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+</div>
+
